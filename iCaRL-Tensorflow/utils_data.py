@@ -9,7 +9,7 @@ except:
     import _pickle as cPickle
 
 def parse_devkit_meta(devkit_path):
-    meta_mat                = scipy.io.loadmat(devkit_path+'/meta.mat')
+    meta_mat                = scipy.io.loadmat(devkit_path+'/data/meta.mat')
     labels_dic              = dict((m[0][1][0], m[0][0][0][0]-1) for m in meta_mat['synsets'] if m[0][0][0][0] >= 1 and m[0][0][0][0] <= 1000)
     label_names_dic         = dict((m[0][1][0], m[0][2][0]) for m in meta_mat['synsets'] if m[0][0][0][0] >= 1 and m[0][0][0][0] <= 1000)
     label_names             = [tup[1] for tup in sorted([(v,label_names_dic[k]) for k,v in labels_dic.items()], key=lambda x:x[0])]    
@@ -75,7 +75,7 @@ def prepare_files(train_path, mixing, order, labels_dic, nb_groups, nb_cl, nb_va
     
     for i in range(nb_groups):
       for i2 in range(nb_cl):
-        tmp_ind=np.where(labels_old == order[nb_cl*i+i2])[0]
+        tmp_ind=np.where(labels_old == order[nb_cl*i + i2])[0]
         np.random.shuffle(tmp_ind)
         files_train[i].extend(files[tmp_ind[0:len(tmp_ind)-nb_val]])
         files_valid[i].extend(files[tmp_ind[len(tmp_ind)-nb_val:]])

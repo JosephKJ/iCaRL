@@ -20,10 +20,10 @@ import utils_data
 ######### Modifiable Settings ##########
 batch_size = 128            # Batch size
 nb_val     = 50             # Validation samples per class
-nb_cl      = 10             # Classes per group 
+nb_cl      = 100             # Classes per group
 nb_groups  = 10             # Number of groups
 nb_proto   = 20             # Number of prototypes per class: total protoset memory/ total number of classes
-epochs     = 60             # Total number of epochs 
+epochs     = 1             # Total number of epochs
 lr_old     = 2.             # Initial learning rate
 lr_strat   = [20,30,40,50]  # Epochs where learning rate gets decreased
 lr_factor  = 5.             # Learning rate decrease factor
@@ -33,9 +33,9 @@ wght_decay = 0.00001        # Weight Decay
 
 ######### Paths  ##########
 # Working station 
-devkit_path = '/home/srebuffi'
-train_path  = '/data/datasets/imagenets72'
-save_path   = '/data/srebuffi/backup/'
+devkit_path = './data/ILSVRC2012_devkit_t12'
+train_path  = '/DATA1/datasets/ILSVRC2012_img_train/imagenet_all_images'
+save_path   = './results/'
 
 ###########################
 
