@@ -17,10 +17,12 @@ import utils_resnet
 import utils_icarl
 import utils_data
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 ######### Modifiable Settings ##########
 batch_size = 128            # Batch size
 nb_val     = 50             # Validation samples per class
-nb_cl      = 100             # Classes per group
+nb_cl      = 10             # Classes per group
 nb_groups  = 10             # Number of groups
 nb_proto   = 20             # Number of prototypes per class: total protoset memory/ total number of classes
 epochs     = 1             # Total number of epochs
@@ -33,9 +35,9 @@ wght_decay = 0.00001        # Weight Decay
 
 ######### Paths  ##########
 # Working station 
-devkit_path = './data/ILSVRC2012_devkit_t12'
+devkit_path = '/home/joseph/ws/iCaRL/iCaRL-Tensorflow/data/ILSVRC2012_devkit_t12/'
 train_path  = '/DATA1/datasets/ILSVRC2012_img_train/imagenet_all_images'
-save_path   = './results/'
+save_path   = '/home/joseph/ws/iCaRL/iCaRL-Tensorflow/results/'
 
 ###########################
 
@@ -54,8 +56,8 @@ for _ in range(nb_groups*nb_cl):
 # Random mixing
 print("Mixing the classes and putting them in batches of classes...")
 np.random.seed(1993)
-order  = np.arange(nb_groups * nb_cl)
-mixing = np.arange(nb_groups * nb_cl)
+order  = np.arange(1000)
+mixing = np.arange(1000)
 np.random.shuffle(mixing)
 
 # Loading the labels
