@@ -18,6 +18,8 @@ import utils_icarl
 import utils_data
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '3'
+
 
 ######### Modifiable Settings ##########
 batch_size = 128            # Batch size
@@ -29,7 +31,7 @@ epochs     = 60             # Total number of epochs
 lr_old     = 2.             # Initial learning rate
 lr_strat   = [20,30,40,50]  # Epochs where learning rate gets decreased
 lr_factor  = 5.             # Learning rate decrease factor
-gpu        = '3'            # Used GPU
+gpu        = '0'            # Used GPU
 wght_decay = 0.00001        # Weight Decay
 ########################################
 
