@@ -72,6 +72,6 @@ def prepare_networks(gpu,image_batch, nb_cl, nb_groups):
   
   variables_graph2 = tf.get_collection(tf.GraphKeys.WEIGHTS, scope='store_ResNet18')
   
-  return variables_graph,variables_graph2,scores,scores_stored
+  return variables_graph, variables_graph2, scores, scores_stored
 
 

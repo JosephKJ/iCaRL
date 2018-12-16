@@ -10,8 +10,9 @@ try:
     import cPickle
 except:
     import _pickle as cPickle
+
 # Syspath for the folder with the utils files
-#sys.path.insert(0, "/media/data/srebuffi")
+# sys.path.insert(0, "/media/data/srebuffi")
 
 import utils_resnet
 import utils_icarl
@@ -27,7 +28,7 @@ nb_val     = 50             # Validation samples per class
 nb_cl      = 10             # Classes per group
 nb_groups  = 10             # Number of groups
 nb_proto   = 20             # Number of prototypes per class: total protoset memory/ total number of classes
-epochs     = 60             # Total number of epochs
+epochs     = 1             # Total number of epochs
 lr_old     = 2.             # Initial learning rate
 lr_strat   = [20,30,40,50]  # Epochs where learning rate gets decreased
 lr_factor  = 5.             # Learning rate decrease factor
@@ -88,6 +89,7 @@ for itera in range(nb_groups):
   
   # Files to load : training samples + protoset
   print('Batch of classes number {0} arrives ...'.format(itera+1))
+
   # Adding the stored exemplars to the training set
   if itera == 0:
     files_from_cl = files_train[itera]
@@ -106,7 +108,7 @@ for itera in range(nb_groups):
   ## Define the objective for the neural network ##
   if itera == 0:
     # No distillation
-    variables_graph,variables_graph2,scores,scores_stored = utils_icarl.prepare_networks(gpu,image_batch, nb_cl, nb_groups)
+    variables_graph, variables_graph2, scores, scores_stored = utils_icarl.prepare_networks(gpu,image_batch, nb_cl, nb_groups)
     
     # Define the objective for the neural network: 1 vs all cross_entropy
     with tf.device('/gpu:' + gpu):
@@ -120,7 +122,7 @@ for itera in range(nb_groups):
   
   if itera > 0:
     # Distillation
-    variables_graph,variables_graph2,scores,scores_stored = utils_icarl.prepare_networks(gpu,image_batch, nb_cl, nb_groups)
+    variables_graph, variables_graph2, scores, scores_stored = utils_icarl.prepare_networks(gpu,image_batch, nb_cl, nb_groups)
     
     # Copying the network to use its predictions as ground truth labels
     op_assign = [(variables_graph2[i]).assign(variables_graph[i]) for i in range(len(variables_graph))]
@@ -136,7 +138,8 @@ for itera in range(nb_groups):
       pred_old_classes  = tf.stack([scores[:,i] for i in old_cl],axis=1)
       pred_new_classes  = tf.stack([scores[:,i] for i in new_cl],axis=1)
       l2_reg            = wght_decay * tf.reduce_sum(tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES, scope='ResNet18'))
-      loss_class        = tf.reduce_mean(tf.concat([tf.nn.sigmoid_cross_entropy_with_logits(labels=label_old_classes, logits=pred_old_classes),tf.nn.sigmoid_cross_entropy_with_logits(labels=label_new_classes, logits=pred_new_classes)],1)) 
+      loss_class        = tf.reduce_mean(tf.concat([tf.nn.sigmoid_cross_entropy_with_logits(labels=label_old_classes, logits=pred_old_classes),
+                                                    tf.nn.sigmoid_cross_entropy_with_logits(labels=label_new_classes, logits=pred_new_classes)],1))
       loss              = loss_class + l2_reg
       learning_rate     = tf.placeholder(tf.float32, shape=[])
       opt               = tf.train.MomentumOptimizer(learning_rate, 0.9)
@@ -160,7 +163,7 @@ for itera in range(nb_groups):
                 itera + 1, nb_groups))
         print('Epoch %i' % epoch)
         for i in range(int(np.ceil(len(files_from_cl)/batch_size))):
-            loss_class_val, _ ,sc,lab = sess.run([loss_class, train_step,scores,label_batch_0], feed_dict={learning_rate: lr})
+            loss_class_val, _, sc, lab = sess.run([loss_class, train_step, scores, label_batch_0], feed_dict={learning_rate: lr})
             loss_batch.append(loss_class_val)
             
             # Plot the training error every 10 batches
@@ -268,5 +271,3 @@ for itera in range(nb_groups):
       cPickle.dump(class_means,fp)
   with open(str(nb_cl)+'files_protoset.pickle','wb') as fp:
       cPickle.dump(files_protoset,fp)
-
-
