@@ -28,8 +28,8 @@ class SubmodularSampler:
         pdist = cdist(self.penultimate_activations, self.penultimate_activations)
 
         # Computing entropy of all the data points once. Used in Uncertainity score calculation.
-        p_log_p = self.logits * tf.log(self.logits)
-        H = np.sum(-p_log_p.numpy(), axis=1)
+        p_log_p = self.logits * np.log(self.logits)
+        H = np.sum(-p_log_p, axis=1)
 
         # Computing distance of each point from the class-mean
         class_mean = np.reshape(np.mean(self.penultimate_activations, axis=0), (1, -1))
@@ -68,7 +68,7 @@ class SubmodularSampler:
             if self.detailed_logging:
                 print('Time for processing {0}/{1} exemplar is {2}'.format(i, self.subset_size, time.time()-now))
 
-        return np.array(subset)
+        return subset
 
     def _normalize(self, vector, eps=0.0001):
         std = np.std(vector)
