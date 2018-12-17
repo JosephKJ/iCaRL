@@ -18,6 +18,8 @@ import utils_resnet
 import utils_icarl
 import utils_data
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 ######### Modifiable Settings ##########
 batch_size = 128            # Batch size
 nb_cl      = 10             # Classes per group
