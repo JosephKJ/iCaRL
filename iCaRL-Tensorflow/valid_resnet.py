@@ -33,7 +33,8 @@ gpu        = '0'            # Used GPU
 # Working station 
 devkit_path = '/home/joseph/ws/iCaRL/iCaRL-Tensorflow/data/ILSVRC2012_devkit_t12/'
 train_path  = '/DATA1/datasets/ILSVRC2012_img_train/imagenet_all_images'
-save_path   = '/home/joseph/ws/iCaRL/iCaRL-Tensorflow/results/iCarl_submodular/'
+save_path   = '/home/joseph/ws/iCaRL/iCaRL-Tensorflow/results/iCarl_full_run'
+# save_path   = '/home/joseph/ws/iCaRL/iCaRL-Tensorflow/results/iCarl_submodular/'
 
 ###########################
 
