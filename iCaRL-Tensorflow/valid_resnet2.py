@@ -20,7 +20,7 @@ import utils_data
 
 ######### Modifiable Settings ##########
 batch_size = 128             # Batch size
-nb_cl      = 100             # Classes per group 
+nb_cl      = 10             # Classes per group
 nb_groups  = 10              # Number of groups
 top        = 5               # Choose to evaluate the top X accuracy 
 itera      = 9               # Choose the state of the network : 0 correspond to the first batch of classes
@@ -30,9 +30,9 @@ gpu        = '0'             # Used GPU
 
 ######### Paths  ##########
 # Working station 
-devkit_path = '/ssd_disk/ILSVRC2012/ILSVRC2012_devkit_t12'
-train_path  = '/ssd_disk/ILSVRC2012/train'
-save_path   = '/media/data/srebuffi/'
+devkit_path = '/home/joseph/ws/iCaRL/iCaRL-Tensorflow/data/ILSVRC2012_devkit_t12/'
+train_path  = '/DATA1/datasets/ILSVRC2012_img_train/imagenet_all_images'
+save_path   = '/home/joseph/ws/iCaRL/iCaRL-Tensorflow/results/iCarl_submodular/'
 
 ###########################
 

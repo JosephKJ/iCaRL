@@ -20,7 +20,7 @@ import utils_data
 
 ######### Modifiable Settings ##########
 batch_size = 128            # Batch size
-nb_cl      = 100             # Classes per group 
+nb_cl      = 10             # Classes per group
 nb_groups  = 10             # Number of groups
 top        = 5              # Choose to evaluate the top X accuracy 
 is_cumul   = 'cumul'        # Evaluate on the cumul of classes if 'cumul', otherwise on the first classes
@@ -29,9 +29,9 @@ gpu        = '0'            # Used GPU
 
 ######### Paths  ##########
 # Working station 
-devkit_path = '/home/srebuffi'
-train_path  = '/data/datasets/imagenets72'
-save_path   = '/data/srebuffi/backup/'
+devkit_path = '/home/joseph/ws/iCaRL/iCaRL-Tensorflow/data/ILSVRC2012_devkit_t12/'
+train_path  = '/DATA1/datasets/ILSVRC2012_img_train/imagenet_all_images'
+save_path   = '/home/joseph/ws/iCaRL/iCaRL-Tensorflow/results/iCarl_submodular/'
 
 ###########################
 
